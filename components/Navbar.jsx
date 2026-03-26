@@ -26,6 +26,9 @@ function Navbar() {
                 <li className="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">
                     <Link href="/posts">Posts</Link>
                 </li>
+                 <li className="text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors">
+                    <Link href="/usuarios">Usuarios</Link>
+                </li>
             </ul>
         </nav>
     );

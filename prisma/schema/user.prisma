@@ -1,11 +1,7 @@
-// prisma/schema/user.prisma
-
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  
-  // Relaciones (Prisma las conectará automáticamente)
-  posts     Post[]
-  profile   Profile?
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  posts   Post[]
+  profile Profile?
 }
