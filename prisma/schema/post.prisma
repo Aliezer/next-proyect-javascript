@@ -1,0 +1,11 @@
+// prisma/schema/post.prisma
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  
+  // Relación con User
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+}

@@ -1,0 +1,10 @@
+// prisma/schema/schema.prisma
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"] // <--- OBLIGATORIO para usar carpetas
+}
+
+datasource db {
+  provider = "postgresql"
+}

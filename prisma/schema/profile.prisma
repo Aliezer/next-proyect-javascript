@@ -1,0 +1,10 @@
+// prisma/schema/profile.prisma
+
+model Profile {
+  id      Int     @id @default(autoincrement())
+  bio     String?
+  
+  // Relación 1 a 1 con User
+  userId  Int     @unique
+  user    User    @relation(fields: [userId], references: [id])
+}
