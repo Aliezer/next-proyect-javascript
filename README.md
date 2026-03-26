@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Proyect JavaScript
 
-## Getting Started
+Proyecto de ejemplo con Next.js + App Router + Prisma 7 + PostgreSQL.
 
-First, run the development server:
+## 🧰 Tecnologías
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js 16.2.1
+- React 19.2.4
+- Tailwind CSS 4
+- Prisma 7
+- PostgreSQL
+- Node 18+ (recomendado)
+
+## 🗂 Estructura clave
+
+- `app/page.jsx` - página inicial.
+- `app/usuarios/page.jsx` - CRUD de usuarios con `prisma.user`, server action y revalidación.
+- `lib/prisma.js` - client Prisma global.
+- `prisma/schema/*.prisma` - modelos: `User`, `Post`, `Profile`.
+- `.env` - `DATABASE_URL`.
+- `copilot-instructions.md` - contexto IA para asistente/copilot.
+
+## ⚙️ Configuración de la BD
+
+1. Asegúrate de tener PostgreSQL corriendo.
+2. `.env`:
+
+```ini
+DATABASE_URL="postgresql://postgres:123@localhost:5432/Web?schema=public"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Genera client:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npx prisma generate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Ejecuta migraciones (si existen):
 
-## Learn More
+```bash
+npx prisma migrate dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Desarrollo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Abre: `http://localhost:3000`
+- Usuarios: `http://localhost:3000/usuarios`
 
-## Deploy on Vercel
+## 🛠 Comandos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` - iniciar dev server
+- `npm run build` - build de producción
+- `npm start` - arrancar app en producción
+- `npx prisma generate` - regenerar client Prisma
+- `npx prisma migrate dev` - aplicar migraciones
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧩 Atención Prisma 7
+
+`prisma/schema/schema.prisma` NO debe tener `url = env("DATABASE_URL")`.
+La conexión se establece en `lib/prisma.js` con adaptador PostgreSQL y `process.env.DATABASE_URL`.
+
+## 🧠 Copilot / IA
+
+- Lee `copilot-instructions.md` para contexto de busqueda rápida.
+- Comprueba:
+  - stack de rutas
+  - modelos Prisma
+  - acciones server y revalidación en `app/usuarios/page.jsx`
+
+## 🔁 Actualizar README
+
+1. Añade nuevas rutas/componentes en "Estructura clave".
+2. Ajusta `Tecnologías` y dependencias si cambias versiones.
+3. Guarda + commit:
+
+```bash
+git add README.md
+git commit -m "Actualiza README con la nueva ruta X"
+```
+
+---
+
+## 📌 Nota final
+
+Si te da error en `/usuarios`, valida que PostgreSQL esté activo y el `.env` correcto, revisa `lib/prisma.js` y haz `npx prisma generate` again.
