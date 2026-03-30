@@ -1,6 +1,51 @@
 # Next Proyect JavaScript
 
-Proyecto de ejemplo con Next.js + App Router + Prisma 7 + PostgreSQL.
+Proyecto de ejemplo con Next.js + App Router + Prisma 7 + PostgreSQL/SqlServer.
+
+## 🚀 Guía de instalación desde Git
+
+1. Clona el repositorio:
+
+```bash
+git clone <url-del-repositorio> next-proyect-javascript
+cd next-proyect-javascript
+```
+
+2. Instala dependencias:
+
+```bash
+npm install
+```
+
+3. Copia el ejemplo de variables de entorno (si existe):
+
+```bash
+copy .env.example .env
+```
+
+4. Ajusta `.env`:
+
+- Para PostgreSQL:
+  `DATABASE_URL="postgresql://postgres:123@localhost:5432/Web?schema=public"`
+- Para SQL Server:
+  `DATABASE_URL="sqlserver://localhost:1433;database=Web;user=sa;password=TuPassword123;encrypt=false"`
+
+5. Genera Prisma y aplica migraciones:
+
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+6. Inicia la aplicación:
+
+```bash
+npm run dev
+```
+
+7. Abre en navegador:
+
+`http://localhost:3000`
 
 ## 🧰 Tecnologías
 
