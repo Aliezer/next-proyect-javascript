@@ -2,6 +2,7 @@ import axios from 'axios';
 import https from 'https';
 import PostCard from '@/components/PostCard';
 
+
 async function loadPosts() {
     try {
         const res = await axios.get('https://jsonplaceholder.typicode.com/posts', {
@@ -11,7 +12,7 @@ async function loadPosts() {
         });
 
         // Simulación de carga (16 segundos)
-        /* await new Promise((resolve) => setTimeout(resolve, 6000)); */
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         
         return res.data;
     } catch (error) {

@@ -17,6 +17,14 @@ cd next-proyect-javascript
 npm install
 ```
 
+> Nota: si el paquete `prisma` no está instalado o lo prefieres explícito,
+> puedes ejecutar:
+>
+> ```bash
+> npm install prisma --save-dev
+> npm install @prisma/client
+> ```
+
 3. Copia el ejemplo de variables de entorno (si existe):
 
 ```bash

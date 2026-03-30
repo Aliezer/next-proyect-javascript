@@ -1,6 +1,8 @@
 import PostCard from '@/components/PostCard';
 import axios from 'axios';
 import https from 'https';
+import PostPages from '../page';
+import { Suspense } from 'react';
 
 async function loadPost(id) { // Pasamos el ID como argumento
     try {
@@ -17,16 +19,25 @@ async function loadPost(id) { // Pasamos el ID como argumento
 }
 
 
-async function PostPage({params}) {
+async function Page({ params }) {
 
-    
-    const {id} = await params;
-    const post = await loadPost(id); 
+
+    const { id } = await params;
+    const post = await loadPost(id);
 
     if (!post) return <div>Post no encontrado.</div>;
-    return ( 
-       <PostCard post={post}/>
-     );
+    return (
+        <>
+            <PostCard post={post} />
+
+            <h3>Otras Publicaciones </h3>
+            <Suspense fallback={<div>Cargando otras publicaciones...</div>}>
+                <PostPages />
+            </Suspense>
+
+        </>
+
+    );
 }
 
-export default PostPage;
+export default Page;
