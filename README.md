@@ -22,24 +22,103 @@ Proyecto de ejemplo con Next.js + App Router + Prisma 7 + PostgreSQL.
 
 ## ⚙️ Configuración de la BD
 
-1. Asegúrate de tener PostgreSQL corriendo.
-2. `.env`:
+### Conectar con PostgreSQL (por defecto)
+
+1. Instala y arranca PostgreSQL.
+2. En `.env`:
 
 ```ini
 DATABASE_URL="postgresql://postgres:123@localhost:5432/Web?schema=public"
 ```
 
-3. Genera client:
+3. En `prisma/schema/schema.prisma` (provider):
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+```
+
+4. Genera client y aplica migraciones:
 
 ```bash
 npx prisma generate
-```
-
-4. Ejecuta migraciones (si existen):
-
-```bash
 npx prisma migrate dev
 ```
+
+---
+
+### Cambiar a SQL Server
+
+1. Instala y arranca Microsoft SQL Server (o SQL Server Docker).
+2. En `.env` actualiza:
+
+```ini
+DATABASE_URL="sqlserver://localhost:1433;database=Web;user=sa;password=TuPassword123;encrypt=false"
+```
+
+3. En `prisma/schema/schema.prisma` (provider):
+
+```prisma
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+```
+
+4. Eliminar migraciones si cambias proveedor, luego recrear (según tu flujo):
+
+```bash
+npx prisma migrate reset --force
+npx prisma generate
+npx prisma migrate dev
+```
+
+> Nota: Prisma no permite mezclar providers en el mismo `schema.prisma`; cambia el `provider` y vuelve a generar el cliente.
+
+---
+
+### Dependencias por proveedor
+
+Prisma 7 usa adaptadores específicos de base de datos. Asegúrate de instalar solo el adaptador y driver del proveedor activo para evitar conflictos.
+
+- PostgreSQL:
+  - `@prisma/adapter-pg`
+  - `pg`
+  - `@prisma/client`, `prisma`
+
+- SQL Server:
+  - `@prisma/adapter-sqlserver` (o el nombre oficial del adaptador en tu versión de Prisma 7; podría ser `@prisma/adapter-mssql`)
+  - `mssql`
+  - `@prisma/client`, `prisma`
+
+Ejemplos:
+
+```bash
+# Para PostgreSQL
+npm install @prisma/adapter-pg pg
+npm uninstall @prisma/adapter-sqlserver mssql
+
+# Para SQL Server
+npm install @prisma/adapter-sqlserver mssql
+npm uninstall @prisma/adapter-pg pg
+```
+
+> Tras cambiar dependencias:
+> - `npx prisma generate`
+> - `npx prisma migrate dev`
+
+---
+
+### Cambiar entre PostgreSQL y SQL Server
+
+- Modifica `DATABASE_URL` y `datasource.db.provider` según el DB que uses.
+- Ejecuta:
+  - `npx prisma generate`
+  - `npx prisma migrate dev` (o `npx prisma migrate reset --force` si cambias provider)
+
+- Verifica `lib/prisma.js` sigue usando `process.env.DATABASE_URL`.
 
 ## 🚀 Desarrollo
 
