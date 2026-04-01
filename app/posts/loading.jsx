@@ -1,8 +1,8 @@
+import LoadingSpinner from "@/components/LoadingSpinner";
+
 function LoadingPage() {
     return ( 
-        <div>
-            <h1>Loading Page .....</h1>
-        </div>
+       <LoadingSpinner text="Cargando usuarios...(Mostrando ejemplo de espera de carga de usuarios)" />
      );
 }
 
