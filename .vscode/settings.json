@@ -1,0 +1,14 @@
+{
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:next-proyect-javascript}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    },
+    "cSpell.words": [
+        "dsgdgdfg",
+        "vfgfgf"
+    ]
+}

@@ -1,17 +1,25 @@
+import PostCardUser from "@/components/PostCardUser";
+import reqresApi from '@/lib/apiClient';
 
-async function loadTrabajadores(params) {
+async function loadTrabajadores(id) {
 
-    const data = apiClient
-    
+    try {
+        const res = await reqresApi.get(`/users/${id}`);
+        return res.data.data;
+    } catch (err) {
+        console.error("Error con la API Key:", err.response?.data || err.message);
+        throw err;
+    }
 }
 
-function TrabajadorPage({params}) {
-
-    return ( 
+async function TrabajadorPage({ params }) {
+    const { id } = await params;
+    const trabajador = await loadTrabajadores(id);
+    return (
         <div>
-            <h3>User Page</h3>
+            <PostCardUser user={trabajador} />
         </div>
-     );
+    );
 }
 
 export default TrabajadorPage;
